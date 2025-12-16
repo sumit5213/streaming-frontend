@@ -14,7 +14,7 @@ const CircularVisualizer: React.FC = () => {
   const startListening = async () => {
     try {
       // WebSocket is added
-      const socket = new WebSocket('wss://streaming-backend-gmpf.onrender.com');
+      const socket = new WebSocket('wss://streaming-backend-gmpf.onrender.com/ws/transcribe');
       socketRef.current = socket;
 
       socket.onopen = () => console.log("Connected to Backend");
@@ -37,7 +37,7 @@ const CircularVisualizer: React.FC = () => {
       analyserRef.current = analyser;
 
       const processor = ctx.createScriptProcessor(4096, 1, 1);
-      processor.onaudioprocess = (e) => {
+      processor.onaudioprocess = (e: AudioProcessingEvent) => {
          if (socket.readyState === WebSocket.OPEN) {
              const inputData = e.inputBuffer.getChannelData(0);
              const buffer = new ArrayBuffer(inputData.length * 2);
