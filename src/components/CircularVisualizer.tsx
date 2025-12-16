@@ -14,7 +14,7 @@ const CircularVisualizer: React.FC = () => {
   const startListening = async () => {
     try {
       // WebSocket is added
-      const socket = new WebSocket('ws://localhost:8081/ws/transcribe');
+      const socket = new WebSocket('wss://streaming-backend-gmpf.onrender.com');
       socketRef.current = socket;
 
       socket.onopen = () => console.log("Connected to Backend");
